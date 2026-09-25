@@ -105,8 +105,9 @@ base64_bufsize_test(void)
 		int mismatches = 0;
 		for (int len = 0; len <= (int)sizeof(in); ++len) {
 			int buflen = base64_encode_bufsize(len, options[i]);
-			char *buf = malloc(buflen);
-			int rc = base64_encode(in, len, buf, buflen, options[i]);
+			char *buf = xmalloc(buflen);
+			int rc = base64_encode(in, len, buf, buflen,
+				options[i]);
 			if (rc + 1 != buflen || buf[rc] != '\0')
 				mismatches++;
 			free(buf);
